@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class AudioText extends Component {
+class AudioTextInput extends Component {
     render() {
         return (
             <div>
@@ -11,4 +11,4 @@ class AudioText extends Component {
     }
 }
 
-export  default AudioText;
+export  default AudioTextInput;

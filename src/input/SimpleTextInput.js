@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class SimpleText extends Component {
+class SimpleTextInput extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,4 +35,4 @@ class SimpleText extends Component {
     }
 }
 
-export  default SimpleText;
+export  default SimpleTextInput;

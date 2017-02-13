@@ -1,16 +1,17 @@
 import React from 'react';
-import SimpleText from  './SimpleText'
-import AudioText from  './AudioText'
+import SimpleTextInput from  './SimpleTextInput';
+import AudioTextInput from  './AudioTextInput';
+
 import InputSolverMapper from '../constant/InputSolverMapper';
 
 const mapper = [
     {
         'slug': InputSolverMapper.INPUT_SIMPLTE_TEXT,
-        'component': SimpleText
+        'component': SimpleTextInput
     },
     {
         'slug': InputSolverMapper.INPUT_AUDIO_TEXT,
-        'component': AudioText
+        'component': AudioTextInput
     }
 ]
 
@@ -31,12 +32,12 @@ class InputHandler extends React.Component {
             input: InputSolverMapper.INPUT_SIMPLTE_TEXT
         };
 
-        this.handleChange = this.handleChange.bind(this);
+        this.handleChangeInput = this.handleChangeInput.bind(this);
         this.handleStart = this.handleStart.bind(this);
 
     }
 
-    handleChange(e) {
+    handleChangeInput(e) {
         this.setState({
             input: e.target.value
         })
@@ -64,7 +65,7 @@ class InputHandler extends React.Component {
             <div>
                 <div>
                     <h3>select input type </h3>
-                    <select defaultValue={this.state.input} onChange={this.handleChange}>
+                    <select defaultValue={this.state.input} onChange={this.handleChangeInput}>
                         {selectOptions}
                     </select>
                 </div>

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import InputHandler from './input/InputHandler';
 import SolverHandler from './solver/SolverHandler';
+
 import InputSolverMapper from './constant/InputSolverMapper';
 
 class Main extends Component {
@@ -10,7 +11,7 @@ class Main extends Component {
         this.state = {
             activeComponent: InputHandler,
             componentData: {}
-        }
+        };
 
         this.handleSwitchAction = this.handleSwitchAction.bind(this);
     }
@@ -26,7 +27,7 @@ class Main extends Component {
                 component = InputHandler;
                 break;
             default:
-                throw 'type not found ';
+                throw new Error('type not found ');
         }
 
         this.setState({
