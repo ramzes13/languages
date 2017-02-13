@@ -1,15 +1,46 @@
 import React, {Component} from 'react';
 import InputHandler from './input/InputHandler';
-
-const inputSolverMapper = [
-    {'input': 'simple-text', 'solver': ''}
-];
+import SolverHandler from './solver/SolverHandler';
+import InputSolverMapper from './constant/InputSolverMapper';
 
 class Main extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            activeComponent: InputHandler,
+            componentData: {}
+        }
+
+        this.handleSwitchAction = this.handleSwitchAction.bind(this);
+    }
+
+    handleSwitchAction(data) {
+        let component;
+
+        switch (data.type) {
+            case InputSolverMapper.HANDLER_INPUT:
+                component = SolverHandler;
+                break;
+            case InputSolverMapper.HANDLER_SOLVER:
+                component = InputHandler;
+                break;
+            default:
+                throw 'type not found ';
+        }
+
+        this.setState({
+            activeComponent: component,
+            componentData: data
+        });
+    }
+
     render() {
+
         return (
             <div className="Main">
-                <InputHandler />
+                <this.state.activeComponent handleSwitchAction={this.handleSwitchAction}
+                                            initialData={this.props.componentData}/>
             </div>
         );
     }

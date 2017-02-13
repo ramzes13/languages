@@ -1,18 +1,26 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 class SimpleText extends Component {
     constructor(props) {
         super(props);
-        console.log('simple text');
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
+
+        this.state = {
+            textAreaValue: props.textAreaValue
+        }
+    }
+
+    handleTextAreaChange(e) {
+        this.setState({textAreaValue: e.target.value});
     }
 
     handleSubmit() {
-        let someData = {
-            'test': true,
+        let data = {
+            'text': this.state.textAreaValue,
         };
 
-        this.props.handleStart(someData);
+        this.props.handleStart(data);
 
     }
 
@@ -20,7 +28,7 @@ class SimpleText extends Component {
         return (
             <div>
                 <h3> Simple text </h3>
-                <textarea></textarea>
+                <textarea value={this.state.textAreaValue} onChange={this.handleTextAreaChange}></textarea>
                 <button onClick={this.handleSubmit}>Start Session</button>
             </div>
         )

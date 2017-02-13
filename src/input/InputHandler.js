@@ -5,17 +5,17 @@ import InputSolverMapper from '../constant/InputSolverMapper';
 
 const mapper = [
     {
-        'slug': InputSolverMapper.SIMPLTE_TEXT,
+        'slug': InputSolverMapper.INPUT_SIMPLTE_TEXT,
         'component': SimpleText
     },
     {
-        'slug': InputSolverMapper.AUDIO_TEXT,
+        'slug': InputSolverMapper.INPUT_AUDIO_TEXT,
         'component': AudioText
     }
 ]
 
 function getComponentNameBySlug(slug) {
-    let element =  mapper.find(el => {
+    let element = mapper.find(el => {
         return slug === el.slug
     });
 
@@ -28,10 +28,11 @@ class InputHandler extends React.Component {
         super(props);
 
         this.state = {
-            input: 'simple-text'
+            input: InputSolverMapper.INPUT_SIMPLTE_TEXT
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleStart = this.handleStart.bind(this);
 
     }
 
@@ -42,7 +43,9 @@ class InputHandler extends React.Component {
     }
 
     handleStart(data) {
-        console.log(data);
+        data.type = InputSolverMapper.HANDLER_INPUT;
+
+        this.props.handleSwitchAction(data);
     }
 
     render() {
@@ -66,7 +69,7 @@ class InputHandler extends React.Component {
                     </select>
                 </div>
                 <div>
-                    <this.componentName />
+                    <this.componentName handleStart={this.handleStart} />
                 </div>
             </div>
         )

@@ -1,14 +1,17 @@
 class InputSolverMapper {
-    static SIMPLTE_TEXT = 'simple-text';
-    static AUDIO_TEXT = 'audio-text';
+    static INPUT_SIMPLTE_TEXT = 'simple-text';
+    static INPUT_AUDIO_TEXT = 'audio-text';
+
+    static HANDLER_INPUT = 'input';
+    static HANDLER_SOLVER = 'solver';
 
     static mapper = [
         {
-            'slug': InputSolverMapper.SIMPLTE_TEXT,
+            'slug': InputSolverMapper.INPUT_SIMPLTE_TEXT,
             'label': 'Simple Text',
         },
         {
-            'slug': InputSolverMapper.AUDIO_TEXT,
+            'slug': InputSolverMapper.INPUT_AUDIO_TEXT,
             'label': 'Audio with text',
         },
     ];

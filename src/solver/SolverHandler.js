@@ -5,5 +5,11 @@ class SolverHandler extends React.Component {
         super(props);
     }
 
+    render () {
+        return (
+            <h1> test </h1>
+        )
+    }
+
 
 }
