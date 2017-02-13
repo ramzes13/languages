@@ -1,13 +1,28 @@
 import React from 'react';
 import SimpleText from  './SimpleText'
 import AudioText from  './AudioText'
+import InputSolverMapper from '../constant/InputSolverMapper';
 
-const availableInputs = [
-    {'slug': 'simple-text', 'label': 'Simple Text', 'component': SimpleText},
-    {'slug': 'audio-text', 'label': 'Audio with text', 'component': AudioText},
-];
+const mapper = [
+    {
+        'slug': InputSolverMapper.SIMPLTE_TEXT,
+        'component': SimpleText
+    },
+    {
+        'slug': InputSolverMapper.AUDIO_TEXT,
+        'component': AudioText
+    }
+]
 
-class GenericInput extends React.Component {
+function getComponentNameBySlug(slug) {
+    let element =  mapper.find(el => {
+        return slug === el.slug
+    });
+
+    return element.component;
+}
+
+class InputHandler extends React.Component {
 
     constructor(props) {
         super(props);
@@ -32,20 +47,15 @@ class GenericInput extends React.Component {
 
     render() {
         let selectOptions = [];
-        let selectedComponent, parent = this;
 
-        availableInputs.forEach(function (availableInput) {
-            if(availableInput.slug === parent.state.input) {
-                selectedComponent = availableInput;
-            }
-
+        InputSolverMapper.getInfoAvailableInputs().forEach(function (availableInput) {
             selectOptions.push((
                 <option key={availableInput.slug} value={availableInput.slug}>{availableInput.label}</option>
             ));
 
         });
 
-        this.componentName = selectedComponent['component'];
+        this.componentName = getComponentNameBySlug(this.state.input);
 
         return (
             <div>
@@ -56,11 +66,11 @@ class GenericInput extends React.Component {
                     </select>
                 </div>
                 <div>
-                    <this.componentName handleStart={(data) => this.handleStart(data)}/>
+                    <this.componentName />
                 </div>
             </div>
         )
     }
 }
 
-export default GenericInput;
+export default InputHandler;

@@ -10,7 +10,7 @@ class SimpleText extends Component {
     handleSubmit() {
         let someData = {
             'test': true,
-        }
+        };
 
         this.props.handleStart(someData);
 
