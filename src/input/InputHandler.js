@@ -13,7 +13,7 @@ const mapper = [
         'slug': InputSolverMapper.INPUT_AUDIO_TEXT,
         'component': AudioTextInput
     }
-]
+];
 
 function getComponentNameBySlug(slug) {
     let element = mapper.find(el => {
@@ -44,9 +44,12 @@ class InputHandler extends React.Component {
     }
 
     handleStart(data) {
-        data.type = InputSolverMapper.HANDLER_INPUT;
+        let startData = {
+            componentData: data,
+            type: InputSolverMapper.HANDLER_INPUT,
+        };
 
-        this.props.handleSwitchAction(data);
+        this.props.handleSwitchAction(startData);
     }
 
     render() {
@@ -70,7 +73,7 @@ class InputHandler extends React.Component {
                     </select>
                 </div>
                 <div>
-                    <this.componentName handleStart={this.handleStart} />
+                    <this.componentName handleStart={this.handleStart} initialData={this.props.initialData}/>
                 </div>
             </div>
         )

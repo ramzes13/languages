@@ -2,6 +2,9 @@ class InputSolverMapper {
     static INPUT_SIMPLTE_TEXT = 'simple-text';
     static INPUT_AUDIO_TEXT = 'audio-text';
 
+    static SOLVER_SIMPLTE_TEXT = 'simple-text';
+    static SOLVER_AUDIO_TEXT = 'audio-text';
+
     static HANDLER_INPUT = 'input';
     static HANDLER_SOLVER = 'solver';
 

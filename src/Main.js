@@ -32,7 +32,7 @@ class Main extends Component {
 
         this.setState({
             activeComponent: component,
-            componentData: data
+            componentData: data.componentData
         });
     }
 
@@ -41,7 +41,7 @@ class Main extends Component {
         return (
             <div className="Main">
                 <this.state.activeComponent handleSwitchAction={this.handleSwitchAction}
-                                            initialData={this.props.componentData}/>
+                                            initialData={this.state.componentData} />
             </div>
         );
     }

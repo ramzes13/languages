@@ -7,7 +7,7 @@ class SimpleTextInput extends Component {
         this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
 
         this.state = {
-            textAreaValue: props.textAreaValue
+            textAreaValue: props.initialData.text
         }
     }
 
