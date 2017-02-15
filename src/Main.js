@@ -9,8 +9,11 @@ class Main extends Component {
         super(props);
 
         this.state = {
-            activeComponent: InputHandler,
-            componentData: {}
+            currentHandler: InputHandler,
+            data: {
+                componentData:{},
+                handlerComponent: InputSolverMapper.COMPONENT_SIMPLTE_TEXT
+            }
         };
 
         this.handleSwitchAction = this.handleSwitchAction.bind(this);
@@ -19,7 +22,7 @@ class Main extends Component {
     handleSwitchAction(data) {
         let component;
 
-        switch (data.type) {
+        switch (data.currentHandler) {
             case InputSolverMapper.HANDLER_INPUT:
                 component = SolverHandler;
                 break;
@@ -31,8 +34,11 @@ class Main extends Component {
         }
 
         this.setState({
-            activeComponent: component,
-            componentData: data.componentData
+            currentHandler: component,
+            data: {
+                componentData: data.componentData,
+                handlerComponent: data.handlerComponent
+            }
         });
     }
 
@@ -40,8 +46,8 @@ class Main extends Component {
 
         return (
             <div className="Main">
-                <this.state.activeComponent handleSwitchAction={this.handleSwitchAction}
-                                            initialData={this.state.componentData} />
+                <this.state.currentHandler handleSwitchAction={this.handleSwitchAction}
+                                            data={this.state.data} />
             </div>
         );
     }

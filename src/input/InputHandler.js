@@ -6,11 +6,11 @@ import InputSolverMapper from '../constant/InputSolverMapper';
 
 const mapper = [
     {
-        'slug': InputSolverMapper.INPUT_SIMPLTE_TEXT,
+        'slug': InputSolverMapper.COMPONENT_SIMPLTE_TEXT,
         'component': SimpleTextInput
     },
     {
-        'slug': InputSolverMapper.INPUT_AUDIO_TEXT,
+        'slug': InputSolverMapper.COMPONENT_AUDIO_TEXT,
         'component': AudioTextInput
     }
 ];
@@ -28,9 +28,7 @@ class InputHandler extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            input: InputSolverMapper.INPUT_SIMPLTE_TEXT
-        };
+        this.state = props.data;
 
         this.handleChangeInput = this.handleChangeInput.bind(this);
         this.handleStart = this.handleStart.bind(this);
@@ -39,14 +37,15 @@ class InputHandler extends React.Component {
 
     handleChangeInput(e) {
         this.setState({
-            input: e.target.value
+            component: e.target.value
         })
     }
 
-    handleStart(data) {
+    handleStart(componentData) {
         let startData = {
-            componentData: data,
-            type: InputSolverMapper.HANDLER_INPUT,
+            componentData: componentData,
+            handlerComponent: this.state.handlerComponent,
+            currentHandler: InputSolverMapper.HANDLER_INPUT
         };
 
         this.props.handleSwitchAction(startData);
@@ -62,18 +61,18 @@ class InputHandler extends React.Component {
 
         });
 
-        this.componentName = getComponentNameBySlug(this.state.input);
+        this.componentName = getComponentNameBySlug(this.state.handlerComponent);
 
         return (
             <div>
                 <div>
-                    <h3>select input type </h3>
-                    <select defaultValue={this.state.input} onChange={this.handleChangeInput}>
+                    <h3>Select input type </h3>
+                    <select defaultValue={this.state.component} onChange={this.handleChangeInput}>
                         {selectOptions}
                     </select>
                 </div>
                 <div>
-                    <this.componentName handleStart={this.handleStart} initialData={this.props.initialData}/>
+                    <this.componentName handleStart={this.handleStart} data={this.state.componentData}/>
                 </div>
             </div>
         )
