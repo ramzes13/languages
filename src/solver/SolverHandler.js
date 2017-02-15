@@ -32,11 +32,12 @@ class SolverHandler extends React.Component {
         this.backHandler = this.backHandler.bind(this);
     }
 
-    backHandler(data) {
+    backHandler() {
 
         let startData = {
             componentData: this.state.componentData,
-            type: InputSolverMapper.HANDLER_SOLVER,
+            handlerComponent: this.state.handlerComponent,
+            currentHandler: InputSolverMapper.HANDLER_SOLVER
         };
 
         this.props.handleSwitchAction(startData);
@@ -49,7 +50,7 @@ class SolverHandler extends React.Component {
 
         return (
             <div>
-                <button onClick={() => this.backHandler(this.state)}>Back to edit</button>
+                <button onClick={() => this.backHandler()}>Back to edit</button>
                 <this.componentName handleStart={this.handleStart} data={this.props.componentData}/>
             </div>
 
