@@ -9,10 +9,11 @@ class Main extends Component {
         super(props);
 
         this.state = {
-            currentHandler: InputHandler,
+            // currentHandler: InputHandler,
+            currentHandler: SolverHandler,
             data: {
                 componentData:{},
-                handlerComponent: InputSolverMapper.COMPONENT_SIMPLTE_TEXT
+                handlerComponent: null,
             }
         };
 

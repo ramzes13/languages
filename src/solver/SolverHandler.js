@@ -19,7 +19,7 @@ function getComponentNameBySlug(slug) {
         return slug === el.slug
     });
 
-    return element.component;
+    return element ? element.component : SimpleTextSolver;
 }
 
 class SolverHandler extends React.Component {
@@ -51,7 +51,7 @@ class SolverHandler extends React.Component {
         return (
             <div>
                 <button onClick={() => this.backHandler()}>Back to edit</button>
-                <this.componentName handleStart={this.handleStart} data={this.props.componentData}/>
+                <this.componentName handleStart={this.handleStart} data={this.state.componentData}/>
             </div>
 
         )

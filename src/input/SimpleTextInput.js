@@ -6,7 +6,6 @@ class SimpleTextInput extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
 
-        console.log('aaa');
         this.state = {
             textAreaValue: props.data.text
         }

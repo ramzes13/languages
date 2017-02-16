@@ -27,7 +27,8 @@ class InputHandler extends React.Component {
 
     constructor(props) {
         super(props);
-
+        let state = props.data;
+        state.handlerComponent = state.handlerComponent || InputSolverMapper.COMPONENT_SIMPLTE_TEXT;
         this.state = props.data;
 
         this.handleChangeInput = this.handleChangeInput.bind(this);

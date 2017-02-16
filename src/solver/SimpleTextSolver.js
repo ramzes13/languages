@@ -1,22 +1,36 @@
 import React from 'react';
 import TinyMCE from 'react-tinymce';
+import SimpleTextTTS from './SimpleTextTTS';
 
 class SimpleTextSolver extends React.Component {
 
+    constructor(props) {
+        super(props);
+
+        let temp = new SimpleTextTTS();
+    }
     handleEditorChange = (e) => {
         console.log('Content was updated:', e.target.getContent());
-    }
+    };
 
     render() {
+        let test = this.props.data.text;
         return (
-            <TinyMCE
-                content="<p>This is the initial content of the editor</p>"
-                config={{
-                    plugins: 'link image code',
-                    toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
-                }}
-                onChange={this.handleEditorChange}
-            />
+            <div>
+                <TinyMCE
+                    content=""
+                    config={{
+                        menubar: false,
+                        plugins: '',
+                        toolbar: 'undo redo'
+                    }}
+                    onChange={this.handleEditorChange}
+                />
+                <div>
+                    <h2>TTS configure</h2>
+                </div>
+            </div>
+
         );
     }
 }
