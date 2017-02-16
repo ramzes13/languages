@@ -12,7 +12,7 @@ const mapper = [
     //     'slug': InputSolverMapper.SOLVER_AUDIO_TEXT,
     //     'component': AudioTextInput
     // }
-]
+];
 
 function getComponentNameBySlug(slug) {
     let element = mapper.find(el => {

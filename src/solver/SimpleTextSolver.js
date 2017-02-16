@@ -7,14 +7,16 @@ class SimpleTextSolver extends React.Component {
     constructor(props) {
         super(props);
 
-        let temp = new SimpleTextTTS();
+        // this.ttsObj = new SimpleTextTTS();
     }
+
     handleEditorChange = (e) => {
         console.log('Content was updated:', e.target.getContent());
     };
 
     render() {
         let test = this.props.data.text;
+
         return (
             <div>
                 <TinyMCE
@@ -28,6 +30,8 @@ class SimpleTextSolver extends React.Component {
                 />
                 <div>
                     <h2>TTS configure</h2>
+                    <SimpleTextTTS />
+                    <button onClick={this.startSession}>Start session</button>
                 </div>
             </div>
 
