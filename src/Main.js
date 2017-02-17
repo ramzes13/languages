@@ -9,8 +9,8 @@ class Main extends Component {
         super(props);
 
         this.state = {
-            // currentHandler: InputHandler,
-            currentHandler: SolverHandler,
+            currentHandler: InputHandler,
+            // currentHandler: SolverHandler,
             data: {
                 componentData:{},
                 handlerComponent: null,

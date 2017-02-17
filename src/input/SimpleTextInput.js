@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import SimpleTextTTSConfig from './SimpleTextTTSConfig';
 
 class SimpleTextInput extends Component {
     constructor(props) {
@@ -7,20 +8,22 @@ class SimpleTextInput extends Component {
         this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
 
         this.state = {
-            textAreaValue: props.data.text
+            text: props.data.text,
+            ttsConfig: {
+                lang: SimpleTextTTSConfig.DEFAULT_LANG,
+                volume: 0.5,
+                rate: 0.8,
+                pitch: 0.8
+            }
         }
     }
 
     handleTextAreaChange(e) {
-        this.setState({textAreaValue: e.target.value});
+        this.setState({text: e.target.value});
     }
 
     handleSubmit() {
-        let data = {
-            'text': this.state.textAreaValue,
-        };
-
-        this.props.handleStart(data);
+        this.props.handleStart(this.state);
 
     }
 
@@ -28,7 +31,8 @@ class SimpleTextInput extends Component {
         return (
             <div>
                 <h3> Simple text </h3>
-                <textarea value={this.state.textAreaValue} onChange={this.handleTextAreaChange}></textarea>
+                <textarea value={this.state.text} onChange={this.handleTextAreaChange}></textarea>
+                <SimpleTextTTSConfig config={this.state.ttsConfig} configDone={this.ttsConfigDone}/>
                 <button onClick={this.handleSubmit}>Start Session</button>
             </div>
         )

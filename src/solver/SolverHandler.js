@@ -33,7 +33,7 @@ class SolverHandler extends React.Component {
     }
 
     backHandler() {
-
+        console.log('back handler')
         let startData = {
             componentData: this.state.componentData,
             handlerComponent: this.state.handlerComponent,

@@ -1,7 +1,6 @@
-import Speech from 'speak-tts';
 import React from 'react';
 
-class SimpleTextTTS extends React.Component {
+class SimpleTextTTSConfig extends React.Component {
 
     static DEFAULT_LANG = 'en-GB';
 
@@ -16,12 +15,7 @@ class SimpleTextTTS extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            lang: SimpleTextTTS.DEFAULT_LANG,
-            volume: 0.5,
-            rate: 0.8,
-            pitch: 0.8
-        };
+        this.state = props.config;
 
         this.handleLanguageChange = this.handleLanguageChange.bind(this);
         this.handleVolumeChange = this.handleVolumeChange.bind(this);
@@ -57,7 +51,6 @@ class SimpleTextTTS extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         let languages = [];
 
         this.languages.forEach((language) => {
@@ -83,9 +76,10 @@ class SimpleTextTTS extends React.Component {
                     Pitch:
                     <input type="text" value={this.state.pitch} onChange={this.handlePitchChange}/>
                 </label>
+                <button onClick={() => {this.props.configDone(this.state)}}>Config done</button>
             </div>
         )
     }
 }
 
-export default SimpleTextTTS;
+export default SimpleTextTTSConfig;

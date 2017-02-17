@@ -1,22 +1,35 @@
 import React from 'react';
 import TinyMCE from 'react-tinymce';
-import SimpleTextTTS from './SimpleTextTTS';
+import TTSControle from './TTSControle';
 
 class SimpleTextSolver extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = props.data;
 
-        // this.ttsObj = new SimpleTextTTS();
+        this.ttsConfigDone = this.ttsConfigDone.bind(this);
+        this.configureTTS = this.configureTTS.bind(this);
+
     }
 
     handleEditorChange = (e) => {
         console.log('Content was updated:', e.target.getContent());
     };
 
-    render() {
-        let test = this.props.data.text;
+    ttsConfigDone(ttsConfig) {
+        this.setState({
+            ttsConfig: ttsConfig,
+            configMode: false
+        })
+    }
+    configureTTS() {
+        this.setState({
+            configMode: true
+        })
+    }
 
+    render() {
         return (
             <div>
                 <TinyMCE
@@ -29,9 +42,7 @@ class SimpleTextSolver extends React.Component {
                     onChange={this.handleEditorChange}
                 />
                 <div>
-                    <h2>TTS configure</h2>
-                    <SimpleTextTTS />
-                    <button onClick={this.startSession}>Start session</button>
+                    <TTSControle configureTTS={this.configureTTS}/>
                 </div>
             </div>
 
