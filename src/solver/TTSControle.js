@@ -23,10 +23,41 @@ class TTSControle extends React.Component {
         }
     }
 
+    toBegin() {
+        console.log('to begin');
+    }
+
+    toEnd() {
+        console.log('to end');
+    }
+
+    stepBack() {
+        console.log('stepBack');
+    }
+
+    stepForward() {
+        console.log('stepForward');
+    }
+
+    handleOptionChange() {
+
+    }
+
     render() {
         return (
             <div>
                 <h2>TTSControle</h2>
+
+                <div onChange={this.handleOptionChange}>
+                    <input type="radio" value="MALE" name="gender"/> Male
+                    <input type="radio" value="FEMALE" name="gender"/> Female
+                </div>
+
+                <button onClick={this.toBegin}>&lt;&lt;</button>
+                <button onClick={this.stepBack}>&lt;</button>
+                <button onClick={this.stepForward}>&gt;</button>
+                <button onClick={this.toEnd}>&gt;&gt;</button>
+
                 <canvas id="canvas" onClick={this.colorStripClick}
                         ref={this.setCanvasContext}></canvas>
             </div>

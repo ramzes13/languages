@@ -3,31 +3,19 @@ import TinyMCE from 'react-tinymce';
 import TTSControle from './TTSControle';
 
 class SimpleTextSolver extends React.Component {
+    generateTextMeta(text) {
 
+    }
     constructor(props) {
         super(props);
         this.state = props.data;
 
-        this.ttsConfigDone = this.ttsConfigDone.bind(this);
-        this.configureTTS = this.configureTTS.bind(this);
-
+        console.log(props.data.text);
     }
 
     handleEditorChange = (e) => {
         console.log('Content was updated:', e.target.getContent());
     };
-
-    ttsConfigDone(ttsConfig) {
-        this.setState({
-            ttsConfig: ttsConfig,
-            configMode: false
-        })
-    }
-    configureTTS() {
-        this.setState({
-            configMode: true
-        })
-    }
 
     render() {
         return (

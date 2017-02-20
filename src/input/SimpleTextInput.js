@@ -8,7 +8,8 @@ class SimpleTextInput extends Component {
         this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
 
         this.state = {
-            text: props.data.text,
+            // text: props.data.text,
+            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet sagittis est. In vulputate vulputate sodales. Suspendisse potenti. Nullam congue ipsum sed sem consectetur gravida. Donec suscipit diam sed orci consequat, sed tincidunt tortor mattis. Maecenas porta velit id ante venenatis auctor. Nulla finibus rutrum ullamcorper. Cras in est.',
             ttsConfig: {
                 lang: SimpleTextTTSConfig.DEFAULT_LANG,
                 volume: 0.5,
@@ -31,7 +32,9 @@ class SimpleTextInput extends Component {
         return (
             <div>
                 <h3> Simple text </h3>
-                <textarea value={this.state.text} onChange={this.handleTextAreaChange}></textarea>
+                <textarea value={this.state.text} onChange={this.handleTextAreaChange} rows="15" cols="100">
+
+                </textarea>
                 <SimpleTextTTSConfig config={this.state.ttsConfig} configDone={this.ttsConfigDone}/>
                 <button onClick={this.handleSubmit}>Start Session</button>
             </div>
