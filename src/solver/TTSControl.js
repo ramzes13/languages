@@ -17,28 +17,7 @@ class TtsSControl extends React.Component {
         };
         this.colorStripClick = this.colorStripClick.bind(this);
         this.handleOptionChange = this.handleOptionChange.bind(this);
-        this.toggleStartPauseBin = this.toggleStartPauseBin.bind(this);
-    }
 
-    colorStripClick() {
-        this.canvasContext.fillStyle = 'green';
-        this.canvasContext.fillRect(10, 10, 100, 100);
-    }
-
-    toBegin() {
-        console.log('to begin');
-    }
-
-    toEnd() {
-        console.log('to end');
-    }
-
-    stepBack() {
-        console.log('stepBack');
-    }
-
-    stepForward() {
-        console.log('stepForward');
     }
 
     handleOptionChange(e) {
@@ -51,19 +30,12 @@ class TtsSControl extends React.Component {
         return <TtsSControlPhrase />;
     }
 
-    toggleStartPauseBin() {
-        this.setState((prevState, props) => ({
-            currentState: prevState.currentState === 'running' ? 'pause' : 'running'
-        }))
+    colorStripClick() {
+        this.canvasContext.fillStyle = 'green';
+        this.canvasContext.fillRect(10, 10, 100, 100);
     }
 
     render() {
-        let startPauseBtnText;
-        if (this.state.currentState === 'running') {
-            startPauseBtnText = 'Pause';
-        } else {
-            startPauseBtnText = 'Start';
-        }
 
         return (
             <div>
@@ -84,11 +56,6 @@ class TtsSControl extends React.Component {
                     </label>
                 </div>
 
-                <button onClick={this.toBegin}>&lt;&lt;</button>
-                <button onClick={this.stepBack}>&lt;</button>
-                <button onClick={this.toggleStartPauseBin}>{startPauseBtnText}</button>
-                <button onClick={this.stepForward}>&gt;</button>
-                <button onClick={this.toEnd}>&gt;&gt;</button>
                 {this.renderControl(this.state.selectedOptionMeta)}
 
             </div>
