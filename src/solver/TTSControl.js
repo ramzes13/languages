@@ -1,25 +1,38 @@
 import React from 'react';
 import Speech from 'speak-tts';
 
-class TTSControle extends React.Component {
-    context = null;
+class TtsSControl extends React.Component {
+
+    static META_PHRASE = 1;
+
+    canvasContext = null;
 
     constructor(props) {
         super(props);
-        console.log('constructor TTSControle');
+        console.log('constructor TtsSControl');
+
+        this.state = {
+            ttsTextMeta: this.generateTTsMeta(props.ttsText)
+        };
 
         this.setCanvasContext = this.setCanvasContext.bind(this);
         this.colorStripClick = this.colorStripClick.bind(this);
     }
 
+    generateTTsMeta(text, metaType = TtsSControl.META_PHRASE) {
+
+    }
+
     colorStripClick() {
-        this.context.fillStyle = 'green';
-        this.context.fillRect(10, 10, 100, 100);
+        this.canvasContext.fillStyle = 'green';
+        this.canvasContext.fillRect(10, 10, 100, 100);
     }
 
     setCanvasContext(c) {
         if(c && c.getContext) {
-            this.context = c.getContext('2d');
+            this.canvasContext = c.getContext('2d');
+        } else {
+            this.canvasContext = null
         }
     }
 
@@ -39,8 +52,8 @@ class TTSControle extends React.Component {
         console.log('stepForward');
     }
 
-    handleOptionChange() {
-
+    handleOptionChange(e) {
+        console.log(e.target)
     }
 
     render() {
@@ -58,11 +71,10 @@ class TTSControle extends React.Component {
                 <button onClick={this.stepForward}>&gt;</button>
                 <button onClick={this.toEnd}>&gt;&gt;</button>
 
-                <canvas id="canvas" onClick={this.colorStripClick}
-                        ref={this.setCanvasContext}></canvas>
+                <canvas id="canvas" onClick={this.colorStripClick} ref={this.setCanvasContext}></canvas>
             </div>
         )
     }
 }
 
-export default TTSControle;
+export default TtsSControl;

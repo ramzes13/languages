@@ -1,6 +1,6 @@
 import React from 'react';
 import TinyMCE from 'react-tinymce';
-import TTSControle from './TTSControle';
+import TtsSControl from './TTSControl';
 
 class SimpleTextSolver extends React.Component {
     generateTextMeta(text) {
@@ -30,7 +30,7 @@ class SimpleTextSolver extends React.Component {
                     onChange={this.handleEditorChange}
                 />
                 <div>
-                    <TTSControle configureTTS={this.configureTTS}/>
+                    <TtsSControl configureTTS={this.configureTTS} ttsText={this.props.data.text}/>
                 </div>
             </div>
 
