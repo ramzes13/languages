@@ -1,39 +1,28 @@
 import React from 'react';
+import TtsSControlPhrase from './TtsSControlPhrase'
 import Speech from 'speak-tts';
 
 class TtsSControl extends React.Component {
 
     static META_PHRASE = 1;
-
-    canvasContext = null;
+    static META_WORDS = 2;
 
     constructor(props) {
         super(props);
         console.log('constructor TtsSControl');
 
         this.state = {
-            ttsTextMeta: this.generateTTsMeta(props.ttsText)
+            selectedOptionMeta: TtsSControl.META_PHRASE,
+            currentState: 'pause'
         };
-
-        this.setCanvasContext = this.setCanvasContext.bind(this);
         this.colorStripClick = this.colorStripClick.bind(this);
-    }
-
-    generateTTsMeta(text, metaType = TtsSControl.META_PHRASE) {
-
+        this.handleOptionChange = this.handleOptionChange.bind(this);
+        this.toggleStartPauseBin = this.toggleStartPauseBin.bind(this);
     }
 
     colorStripClick() {
         this.canvasContext.fillStyle = 'green';
         this.canvasContext.fillRect(10, 10, 100, 100);
-    }
-
-    setCanvasContext(c) {
-        if(c && c.getContext) {
-            this.canvasContext = c.getContext('2d');
-        } else {
-            this.canvasContext = null
-        }
     }
 
     toBegin() {
@@ -53,25 +42,55 @@ class TtsSControl extends React.Component {
     }
 
     handleOptionChange(e) {
-        console.log(e.target)
+        this.setState({
+            selectedOptionMeta: parseInt(e.target.value)
+        });
+    }
+
+    renderControl(type) {
+        return <TtsSControlPhrase />;
+    }
+
+    toggleStartPauseBin() {
+        this.setState((prevState, props) => ({
+            currentState: prevState.currentState === 'running' ? 'pause' : 'running'
+        }))
     }
 
     render() {
+        let startPauseBtnText;
+        if (this.state.currentState === 'running') {
+            startPauseBtnText = 'Pause';
+        } else {
+            startPauseBtnText = 'Start';
+        }
+
         return (
             <div>
                 <h2>TTSControle</h2>
 
-                <div onChange={this.handleOptionChange}>
-                    <input type="radio" value="MALE" name="gender"/> Male
-                    <input type="radio" value="FEMALE" name="gender"/> Female
+                <div>
+                    <label>
+                        <input type="radio" value={TtsSControl.META_PHRASE} name="meta-type"
+                               checked={this.state.selectedOptionMeta === TtsSControl.META_PHRASE}
+                               onChange={this.handleOptionChange}/>
+                        Phrases
+                    </label>
+                    <label>
+                        <input type="radio" value={TtsSControl.META_WORDS} name="meta-type"
+                               checked={this.state.selectedOptionMeta === TtsSControl.META_WORDS}
+                               onChange={this.handleOptionChange}/>
+                        Words
+                    </label>
                 </div>
 
                 <button onClick={this.toBegin}>&lt;&lt;</button>
                 <button onClick={this.stepBack}>&lt;</button>
+                <button onClick={this.toggleStartPauseBin}>{startPauseBtnText}</button>
                 <button onClick={this.stepForward}>&gt;</button>
                 <button onClick={this.toEnd}>&gt;&gt;</button>
+                {this.renderControl(this.state.selectedOptionMeta)}
 
-                <canvas id="canvas" onClick={this.colorStripClick} ref={this.setCanvasContext}></canvas>
             </div>
         )
     }
