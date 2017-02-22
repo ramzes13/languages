@@ -9,13 +9,7 @@ class SimpleTextInput extends Component {
 
         this.state = {
             // text: props.data.text,
-            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet sagittis est. In vulputate vulputate sodales. Suspendisse potenti. Nullam congue ipsum sed sem consectetur gravida. Donec suscipit diam sed orci consequat, sed tincidunt tortor mattis. Maecenas porta velit id ante venenatis auctor. Nulla finibus rutrum ullamcorper. Cras in est.',
-            ttsConfig: {
-                lang: SimpleTextTTSConfig.DEFAULT_LANG,
-                volume: 0.5,
-                rate: 0.8,
-                pitch: 0.8
-            }
+            text: 'The baby is not injured badly. Its head is only a little scratched. However, the family has a problem. They are in the bedroom. The cat is outside the room. The family cannot get out of the bedroom. If they get out, the cat attacks them.'
         }
     }
 
@@ -35,7 +29,6 @@ class SimpleTextInput extends Component {
                 <textarea value={this.state.text} onChange={this.handleTextAreaChange} rows="15" cols="100">
 
                 </textarea>
-                <SimpleTextTTSConfig config={this.state.ttsConfig} configDone={this.ttsConfigDone}/>
                 <button onClick={this.handleSubmit}>Start Session</button>
             </div>
         )

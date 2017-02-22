@@ -1,6 +1,6 @@
 import React from 'react';
 
-class ControlleButtons extends React.Component {
+class ControlButtons extends React.Component {
     constructor(props) {
         super(props);
 
@@ -33,7 +33,7 @@ class ControlleButtons extends React.Component {
         let startPauseBtnText;
 
         if (this.state.currentState === 'running') {
-            startPauseBtnText = 'Pause';
+            startPauseBtnText = 'Stop';
         } else {
             startPauseBtnText = 'Start';
         }
@@ -44,10 +44,10 @@ class ControlleButtons extends React.Component {
                 <button onClick={this.stepBack}>&lt;</button>
                 <button onClick={this.toggleStartPauseBtn}>{startPauseBtnText}</button>
                 <button onClick={this.stepForward}>&gt;</button>
-                <button onClick={this.toEnd}>&gt;&gt;</button>
+                {/*<button onClick={this.toEnd}>&gt;&gt;</button>*/}
             </div>
         )
     }
 }
 
-export  default ControlleButtons;
+export  default ControlButtons;

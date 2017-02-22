@@ -2,17 +2,17 @@ import React from 'react';
 import TtsSControlPhrase from './TtsSControlPhrase'
 import Speech from 'speak-tts';
 
-class TtsSControl extends React.Component {
+class TTSSControl extends React.Component {
 
     static META_PHRASE = 1;
     static META_WORDS = 2;
 
     constructor(props) {
         super(props);
-        console.log('constructor TtsSControl');
+        console.log('constructor TTSSControl');
 
         this.state = {
-            selectedOptionMeta: TtsSControl.META_PHRASE,
+            selectedOptionMeta: TTSSControl.META_PHRASE,
             currentState: 'pause'
         };
         this.colorStripClick = this.colorStripClick.bind(this);
@@ -27,7 +27,7 @@ class TtsSControl extends React.Component {
     }
 
     renderControl(type) {
-        return <TtsSControlPhrase />;
+        return <TtsSControlPhrase ttsText={this.props.ttsText} ttsConfig={this.props.ttsConfig}/>;
     }
 
     colorStripClick() {
@@ -43,14 +43,14 @@ class TtsSControl extends React.Component {
 
                 <div>
                     <label>
-                        <input type="radio" value={TtsSControl.META_PHRASE} name="meta-type"
-                               checked={this.state.selectedOptionMeta === TtsSControl.META_PHRASE}
+                        <input type="radio" value={TTSSControl.META_PHRASE} name="meta-type"
+                               checked={this.state.selectedOptionMeta === TTSSControl.META_PHRASE}
                                onChange={this.handleOptionChange}/>
                         Phrases
                     </label>
                     <label>
-                        <input type="radio" value={TtsSControl.META_WORDS} name="meta-type"
-                               checked={this.state.selectedOptionMeta === TtsSControl.META_WORDS}
+                        <input type="radio" value={TTSSControl.META_WORDS} name="meta-type"
+                               checked={this.state.selectedOptionMeta === TTSSControl.META_WORDS}
                                onChange={this.handleOptionChange}/>
                         Words
                     </label>
@@ -63,4 +63,4 @@ class TtsSControl extends React.Component {
     }
 }
 
-export default TtsSControl;
+export default TTSSControl;

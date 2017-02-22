@@ -1,5 +1,6 @@
 import React from 'react';
-import ControlleButtons from './ControlleButtons';
+import ControlButtons from './ControlButtons';
+import Speech from 'speak-tts'
 
 class TtsSControlPhrase extends React.Component {
 
@@ -8,14 +9,17 @@ class TtsSControlPhrase extends React.Component {
     constructor(props) {
         super(props);
 
+        console.log(props.ttsConfig);
+        Speech.init(props.ttsConfig);
+
+
         this.setCanvasContext = this.setCanvasContext.bind(this);
 
         this.state = {
-            ttsTextMeta: this.generateTTsMeta(props.ttsText)
+            ttsTextMeta: this.generateTTsMeta(props.ttsText),
+            ttsCurrentState: 0
         };
 
-        this.toBegin = this.toBegin.bind(this);
-        this.toEnd = this.toEnd.bind(this);
         this.stepBack = this.stepBack.bind(this);
         this.stepForward = this.stepForward.bind(this);
         this.start = this.start.bind(this);
@@ -23,15 +27,17 @@ class TtsSControlPhrase extends React.Component {
     }
 
     generateTTsMeta(text) {
-        console.log(text);
+        return text.split(".")
+            .map((phrase) => {
+                return phrase.trim()
+            })
+            .filter((phrase) => {
+                return (phrase.length > 0);
+            });
     }
 
-    toBegin() {
-        console.log('to begin');
-    }
-
-    toEnd() {
-        console.log('to end');
+    getCurrentText() {
+        return this.state['ttsTextMeta'][this.state['ttsCurrentState']] + '.';
     }
 
     stepBack() {
@@ -43,11 +49,13 @@ class TtsSControlPhrase extends React.Component {
     }
 
     start() {
-
+        Speech.speak({
+            text: this.getCurrentText()
+        })
     }
 
     stop() {
-
+        Speech.stop();
     }
 
     setCanvasContext(c) {
@@ -61,9 +69,9 @@ class TtsSControlPhrase extends React.Component {
     render() {
         return (
             <div>
-                <ControlleButtons toBegin={this.toBegin} toEnd={this.toEnd}
-                                  stepBack={this.stepBack} stepForward={this.stepForward}
-                                  start={this.start} stop={this.stop}/>
+                <ControlButtons toBegin={this.toBegin} toEnd={this.toEnd}
+                                stepBack={this.stepBack} stepForward={this.stepForward}
+                                start={this.start} stop={this.stop}/>
 
                 <canvas onClick={this.colorStripClick} ref={this.setCanvasContext}></canvas>
             </div>
