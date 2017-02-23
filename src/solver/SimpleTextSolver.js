@@ -59,9 +59,9 @@ class SimpleTextSolver extends React.Component {
                     onChange={this.handleEditorChange}
                 />
                 <div>
-                    <button onClick={() => {this.props.configDone(this.state)}}>Config done</button>
+                    {/*<button onClick={() => {this.props.configDone(this.state)}}>Config done</button>*/}
                     {this.renderTTSConfig()}
-                    <TTSSControl ttsText={this.props.data.text} />
+                    <TTSSControl ttsText={this.props.data.text} ttsConfig={this.state.ttsConfig} />
 
                 </div>
             </div>

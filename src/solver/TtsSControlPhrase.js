@@ -9,10 +9,6 @@ class TtsSControlPhrase extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log(props.ttsConfig);
-        Speech.init(props.ttsConfig);
-
-
         this.setCanvasContext = this.setCanvasContext.bind(this);
 
         this.state = {
@@ -41,11 +37,19 @@ class TtsSControlPhrase extends React.Component {
     }
 
     stepBack() {
-        console.log('stepBack');
+        this.setState((prevState) => {
+            return {
+                ttsCurrentState: prevState.ttsCurrentState - 1
+            }
+        })
     }
 
     stepForward() {
-        console.log('stepForward');
+        this.setState((prevState) => {
+            return {
+                ttsCurrentState: prevState.ttsCurrentState + 1
+            }
+        })
     }
 
     start() {
@@ -67,11 +71,14 @@ class TtsSControlPhrase extends React.Component {
     }
 
     render() {
+        console.log(this.props.ttsConfig);
+        Speech.init(this.props.ttsConfig);
+
         return (
             <div>
-                <ControlButtons toBegin={this.toBegin} toEnd={this.toEnd}
-                                stepBack={this.stepBack} stepForward={this.stepForward}
-                                start={this.start} stop={this.stop}/>
+                <ControlButtons stepBack={this.stepBack} stepForward={this.stepForward}
+                                start={this.start} stop={this.stop}
+                                currentElement={this.state.ttsCurrentState} totalElements={this.state.ttsTextMeta.length}/>
 
                 <canvas onClick={this.colorStripClick} ref={this.setCanvasContext}></canvas>
             </div>

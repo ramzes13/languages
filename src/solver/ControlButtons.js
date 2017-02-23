@@ -38,12 +38,21 @@ class ControlButtons extends React.Component {
             startPauseBtnText = 'Start';
         }
 
+        let disabledStepBack = false;
+        let disabledStepForward = false;
+        if(this.props.currentElement === 0) {
+            disabledStepBack = true;
+        }
+
+        if(this.props.currentElement === this.props.totalElements) {
+            disabledStepForward = true;
+        }
+
         return (
             <div>
-                <button onClick={this.props.toBegin}>&lt;&lt;</button>
-                <button onClick={this.stepBack}>&lt;</button>
+                <button disabled={disabledStepBack}  onClick={this.props.stepBack}>&lt;</button>
                 <button onClick={this.toggleStartPauseBtn}>{startPauseBtnText}</button>
-                <button onClick={this.stepForward}>&gt;</button>
+                <button disabled={disabledStepForward} onClick={this.props.stepForward}>&gt;</button>
                 {/*<button onClick={this.toEnd}>&gt;&gt;</button>*/}
             </div>
         )

@@ -9,7 +9,6 @@ class TTSSControl extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log('constructor TTSSControl');
 
         this.state = {
             selectedOptionMeta: TTSSControl.META_PHRASE,
