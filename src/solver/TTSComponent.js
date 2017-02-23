@@ -1,6 +1,6 @@
 import React from 'react';
 
-class TTSConfig extends React.Component {
+class TTSComponent extends React.Component {
 
     static DEFAULT_LANG = 'en-GB';
 
@@ -39,7 +39,7 @@ class TTSConfig extends React.Component {
     }
 
     handleVolumeChange(e) {
-        console.log('on blurr')
+        console.log('on blurr');
         this.setFloatValuesToState(e.target.value, 'volume')
     }
 
@@ -83,4 +83,4 @@ class TTSConfig extends React.Component {
     }
 }
 
-export default TTSConfig;
+export default TTSComponent;

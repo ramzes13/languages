@@ -71,15 +71,10 @@ class TtsSControlPhrase extends React.Component {
     }
 
     render() {
-        console.log(this.props.ttsConfig);
         Speech.init(this.props.ttsConfig);
 
         return (
             <div>
-                <ControlButtons stepBack={this.stepBack} stepForward={this.stepForward}
-                                start={this.start} stop={this.stop}
-                                currentElement={this.state.ttsCurrentState} totalElements={this.state.ttsTextMeta.length}/>
-
                 <canvas onClick={this.colorStripClick} ref={this.setCanvasContext}></canvas>
             </div>
         )

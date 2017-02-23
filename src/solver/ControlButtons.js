@@ -1,38 +1,37 @@
 import React from 'react';
+import TTSSControl from './TTSControl';
 
 class ControlButtons extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            currentState: 'pause'
+            currentState: props.currentState
         };
 
         this.toggleStartPauseBtn = this.toggleStartPauseBtn.bind(this);
     }
 
     toggleStartPauseBtn() {
-        let parent = this;
 
-        this.setState((prevState) => {
-            let currentState;
+        let currentState;
 
-            if (prevState.currentState === 'running') {
-                parent.props.stop();
-                currentState = 'pause';
-            } else {
-                parent.props.start();
-                currentState = 'running';
-            }
+        if (this.props.currentState === TTSSControl.STATE_RUNNING) {
+            this.props.stop();
+            currentState = TTSSControl.STATE_PAUSE;
+        } else {
+            this.props.start();
+            currentState = TTSSControl.STATE_RUNNING;
+        }
 
-            return {currentState: currentState}
-        })
+        this.setState({currentState: currentState});
     }
 
     render() {
+        console.log('control render')
         let startPauseBtnText;
 
-        if (this.state.currentState === 'running') {
+        if (this.props.currentState === TTSSControl.STATE_RUNNING) {
             startPauseBtnText = 'Stop';
         } else {
             startPauseBtnText = 'Start';
@@ -40,6 +39,7 @@ class ControlButtons extends React.Component {
 
         let disabledStepBack = false;
         let disabledStepForward = false;
+        let disabledStartStop = false;
         if(this.props.currentElement === 0) {
             disabledStepBack = true;
         }
@@ -48,10 +48,14 @@ class ControlButtons extends React.Component {
             disabledStepForward = true;
         }
 
+        if(this.props.totalElements === 0) {
+            disabledStartStop = true;
+        }
+
         return (
             <div>
                 <button disabled={disabledStepBack}  onClick={this.props.stepBack}>&lt;</button>
-                <button onClick={this.toggleStartPauseBtn}>{startPauseBtnText}</button>
+                <button disabled={disabledStartStop} onClick={this.toggleStartPauseBtn}>{startPauseBtnText}</button>
                 <button disabled={disabledStepForward} onClick={this.props.stepForward}>&gt;</button>
                 {/*<button onClick={this.toEnd}>&gt;&gt;</button>*/}
             </div>

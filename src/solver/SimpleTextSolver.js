@@ -1,50 +1,37 @@
 import React from 'react';
 import TinyMCE from 'react-tinymce';
 import TTSSControl from './TTSControl';
-import TTSConfig from './TTSConfig';
+import SimpleTextSolverPhrase from './SimpleTextSolverPhrase';
 
 class SimpleTextSolver extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             displayTTSConfig: true,
-            ttsConfig: {
-                lang: TTSConfig.DEFAULT_LANG,
-                volume: 0.5,
-                rate: 0.8,
-                pitch: 0.8
-            },
-            data: props.data
+            data: props.data,
+            textMeta: [],
+            currentElement: 0,
         };
 
-        this.updateTTSConfig = this.updateTTSConfig.bind(this);
+        this.getTextByPosition = this.getTextByPosition.bind(this);
+        this.onTextMetaReady = this.onTextMetaReady.bind(this);
     }
 
     handleEditorChange = (e) => {
         console.log('Content was updated:', e.target.getContent());
     };
 
-    togleTTSConfig() {
-        this.setState({
-            displayTTSConfig: !this.state.displayTTSConfig
+    onTextMetaReady(data) {
+        this.setState((prevState) => {
+            return {
+                textMeta: data
+            }
         })
     }
 
-    updateTTSConfig(config){
-        this.setState({
-            displayTTSConfig: false,
-            ttsConfig: config
-        })
+    getTextByPosition(position) {
+        return this.state.textMeta[position];
     }
-
-    renderTTSConfig()
-    {
-        // if(this.state.displayTTSConfig) {
-            return <TTSConfig config={this.state.ttsConfig}
-                              configDone={this.updateTTSConfig} />
-        // }
-    }
-
 
     render() {
         return (
@@ -59,10 +46,9 @@ class SimpleTextSolver extends React.Component {
                     onChange={this.handleEditorChange}
                 />
                 <div>
-                    {/*<button onClick={() => {this.props.configDone(this.state)}}>Config done</button>*/}
-                    {this.renderTTSConfig()}
-                    <TTSSControl ttsText={this.props.data.text} ttsConfig={this.state.ttsConfig} />
-
+                    <SimpleTextSolverPhrase text={this.state.data.text} onTextMetaReady={this.onTextMetaReady}/>
+                    <TTSSControl totalElements={this.state.textMeta.length}
+                                 getTextByPosition={this.getTextByPosition}/>
                 </div>
             </div>
         );
