@@ -48,6 +48,7 @@ class TTSSControl extends React.Component {
 
         let parent = this,
             currentText = this.getCurrentText();
+
         console.log(currentText);
 
         Speech.speak({
@@ -78,32 +79,18 @@ class TTSSControl extends React.Component {
             ttsConfig: ttsConfig
         })
     }
-    render() {
 
+    render() {
         Speech.init(this.state.ttsConfig);
 
         return (
             <div>
                 <h2>TTS control</h2>
 
-                {/*<div>*/}
-                    {/*<label>*/}
-                        {/*<input type="radio" value={TTSSControl.META_PHRASE} name="meta-type"*/}
-                               {/*checked={this.state.selectedOptionMeta === TTSSControl.META_PHRASE}*/}
-                               {/*onChange={this.handleOptionChange}/>*/}
-                        {/*Phrases*/}
-                    {/*</label>*/}
-                    {/*<label>*/}
-                        {/*<input type="radio" value={TTSSControl.META_WORDS} name="meta-type"*/}
-                               {/*checked={this.state.selectedOptionMeta === TTSSControl.META_WORDS}*/}
-                               {/*onChange={this.handleOptionChange}/>*/}
-                        {/*Words*/}
-                    {/*</label>*/}
-                {/*</div>*/}
-
                 <ControlButtons currentElement={this.state.currentElement} totalElements={this.props.totalElements}
-                                stepBack={this.stepBack} stepForward={this.stepForward} currentState={this.state.currentState}
-                                start={this.start} stop={this.stop} />
+                                stepBack={this.stepBack} stepForward={this.stepForward}
+                                currentState={this.state.currentState}
+                                start={this.start} stop={this.stop}/>
                 <TTSConfiguration config={this.state.ttsConfig} configDone={this.reinitTTS}/>
 
             </div>

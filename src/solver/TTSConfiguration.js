@@ -14,7 +14,6 @@ class TTSConfiguration extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(props);
         this.state = props.config;
 
         this.handleLanguageChange = this.handleLanguageChange.bind(this);
@@ -51,6 +50,7 @@ class TTSConfiguration extends React.Component {
     handlePitchChange(e) {
         this.setFloatValuesToState(e.target.value, 'pitch')
     }
+
     configDone() {
         this.props.configDone(this.state);
     }

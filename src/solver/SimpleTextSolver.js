@@ -1,33 +1,25 @@
 import React from 'react';
 import TinyMCE from 'react-tinymce';
 import TTSSControl from './TTSControl';
-import SimpleTextSolverPhrase from './SimpleTextSolverPhrase';
+import TextMetaGenerator from './TextMetaGenerator';
 
 class SimpleTextSolver extends React.Component {
     constructor(props) {
+
         super(props);
         this.state = {
             displayTTSConfig: true,
             data: props.data,
-            textMeta: [],
+            textMeta: TextMetaGenerator.generateTTsMeta(props.data.text),
             currentElement: 0,
         };
 
         this.getTextByPosition = this.getTextByPosition.bind(this);
-        this.onTextMetaReady = this.onTextMetaReady.bind(this);
     }
 
     handleEditorChange = (e) => {
         console.log('Content was updated:', e.target.getContent());
     };
-
-    onTextMetaReady(data) {
-        this.setState((prevState) => {
-            return {
-                textMeta: data
-            }
-        })
-    }
 
     getTextByPosition(position) {
         return this.state.textMeta[position];
@@ -46,8 +38,7 @@ class SimpleTextSolver extends React.Component {
                     onChange={this.handleEditorChange}
                 />
                 <div>
-                    <SimpleTextSolverPhrase text={this.state.data.text} onTextMetaReady={this.onTextMetaReady}/>
-                    <TTSSControl totalElements={this.state.textMeta.length}
+                    <TTSSControl totalElements={this.state.textMeta.length - 1}
                                  getTextByPosition={this.getTextByPosition}/>
                 </div>
             </div>
