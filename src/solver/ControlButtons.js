@@ -28,7 +28,6 @@ class ControlButtons extends React.Component {
     }
 
     render() {
-        console.log('control render')
         let startPauseBtnText;
 
         if (this.props.currentState === TTSSControl.STATE_RUNNING) {
@@ -57,7 +56,6 @@ class ControlButtons extends React.Component {
                 <button disabled={disabledStepBack}  onClick={this.props.stepBack}>&lt;</button>
                 <button disabled={disabledStartStop} onClick={this.toggleStartPauseBtn}>{startPauseBtnText}</button>
                 <button disabled={disabledStepForward} onClick={this.props.stepForward}>&gt;</button>
-                {/*<button onClick={this.toEnd}>&gt;&gt;</button>*/}
             </div>
         )
     }

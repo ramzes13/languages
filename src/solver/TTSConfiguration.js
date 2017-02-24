@@ -1,10 +1,10 @@
 import React from 'react';
 
-class TTSComponent extends React.Component {
+class TTSConfiguration extends React.Component {
 
     static DEFAULT_LANG = 'en-GB';
 
-    languages = [
+    static languages = [
         {slug: 'en-GB', label: 'English'},
         {slug: 'fr-FR', label: 'French'},
         {slug: 'es-ES', label: 'Spanish'},
@@ -14,13 +14,14 @@ class TTSComponent extends React.Component {
 
     constructor(props) {
         super(props);
-
+        console.log(props);
         this.state = props.config;
 
         this.handleLanguageChange = this.handleLanguageChange.bind(this);
         this.handleVolumeChange = this.handleVolumeChange.bind(this);
         this.handleRateChange = this.handleRateChange.bind(this);
         this.handlePitchChange = this.handlePitchChange.bind(this);
+        this.configDone = this.configDone.bind(this);
     }
 
     setFloatValuesToState(val, stateKey) {
@@ -50,11 +51,14 @@ class TTSComponent extends React.Component {
     handlePitchChange(e) {
         this.setFloatValuesToState(e.target.value, 'pitch')
     }
+    configDone() {
+        this.props.configDone(this.state);
+    }
 
     render() {
         let languages = [];
 
-        this.languages.forEach((language) => {
+        TTSConfiguration.languages.forEach((language) => {
             languages.push((
                 <option key={language.slug} value={language.slug}>{language.label}</option>
             ))
@@ -77,10 +81,10 @@ class TTSComponent extends React.Component {
                     Pitch:
                     <input type="text" defaultValue={this.state.pitch} onBlur={this.handlePitchChange}/>
                 </label>
-                <button onClick={() => {this.props.configDone(this.state)}}>Config done</button>
+                <button onClick={this.configDone}>Save</button>
             </div>
         )
     }
 }
 
-export default TTSComponent;
+export default TTSConfiguration;

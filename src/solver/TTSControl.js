@@ -1,5 +1,7 @@
 import React from 'react';
 import ControlButtons from './ControlButtons';
+import TTSConfiguration from './TTSConfiguration';
+
 import Speech from 'speak-tts';
 
 class TTSSControl extends React.Component {
@@ -12,21 +14,20 @@ class TTSSControl extends React.Component {
 
         this.state = {
             currentState: TTSSControl.STATE_PAUSE,
-            currentElement: 0
+            currentElement: 0,
+            ttsConfig: {
+                'lang': TTSConfiguration.DEFAULT_LANG,
+                'volume': 0.5,
+                'rate': 0.8,
+                'pitch': 0.8
+            }
         };
 
         this.start = this.start.bind(this);
         this.stop = this.stop.bind(this);
         this.stepBack = this.stepBack.bind(this);
         this.stepForward = this.stepForward.bind(this);
-
-        Speech.init({
-            'onVoicesLoaded': (data) => {console.log('voices', data.voices)},
-            'lang': 'en-GB', // specify en-GB language (no detection applied)
-            'volume': 0.5,
-            'rate': 0.8,
-            'pitch': 0.8
-        })
+        this.reinitTTS = this.reinitTTS.bind(this);
     }
 
     stepBack() {
@@ -45,10 +46,12 @@ class TTSSControl extends React.Component {
 
     start() {
 
-        let parent = this;
-        console.log('start');
+        let parent = this,
+            currentText = this.getCurrentText();
+        console.log(currentText);
+
         Speech.speak({
-            text: this.getCurrentText(),
+            text: currentText,
             onEnd: () => {
                 console.log('on end');
                 parent.stop();
@@ -70,7 +73,14 @@ class TTSSControl extends React.Component {
         return this.props.getTextByPosition(this.state.currentElement);
     }
 
+    reinitTTS(ttsConfig) {
+        this.setState({
+            ttsConfig: ttsConfig
+        })
+    }
     render() {
+
+        Speech.init(this.state.ttsConfig);
 
         return (
             <div>
@@ -90,10 +100,11 @@ class TTSSControl extends React.Component {
                         {/*Words*/}
                     {/*</label>*/}
                 {/*</div>*/}
+
                 <ControlButtons currentElement={this.state.currentElement} totalElements={this.props.totalElements}
                                 stepBack={this.stepBack} stepForward={this.stepForward} currentState={this.state.currentState}
                                 start={this.start} stop={this.stop} />
-                {/*{this.renderControl(this.state.selectedOptionMeta)}*/}
+                <TTSConfiguration config={this.state.ttsConfig} configDone={this.reinitTTS}/>
 
             </div>
         )
