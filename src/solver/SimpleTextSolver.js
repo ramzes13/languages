@@ -1,5 +1,5 @@
 import React from 'react';
-import TinyMCE from 'react-tinymce';
+import TextSolverComponent from './TextSolverComponent';
 import TTSSControl from './TTSControl';
 import TextMetaGenerator from './TextMetaGenerator';
 
@@ -17,10 +17,6 @@ class SimpleTextSolver extends React.Component {
         this.getTextByPosition = this.getTextByPosition.bind(this);
     }
 
-    handleEditorChange = (e) => {
-        console.log('Content was updated:', e.target.getContent());
-    };
-
     getTextByPosition(position) {
         return this.state.textMeta[position];
     }
@@ -28,18 +24,9 @@ class SimpleTextSolver extends React.Component {
     render() {
         return (
             <div>
-                <TinyMCE
-                    content=""
-                    config={{
-                        menubar: false,
-                        plugins: '',
-                        toolbar: 'undo redo'
-                    }}
-                    onChange={this.handleEditorChange}
-                />
+                <TextSolverComponent />
                 <div>
-                    <TTSSControl totalElements={this.state.textMeta.length - 1}
-                                 getTextByPosition={this.getTextByPosition}/>
+                    <TTSSControl totalElements={this.state.textMeta.length - 1} getTextByPosition={this.getTextByPosition}/>
                 </div>
             </div>
         );
