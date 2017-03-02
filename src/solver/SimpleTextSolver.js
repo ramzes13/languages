@@ -24,7 +24,7 @@ class SimpleTextSolver extends React.Component {
     render() {
         return (
             <div>
-                <TextSolverComponent />
+                <TextSolverComponent initialText={this.props.data.text}/>
                 <div>
                     <TTSSControl totalElements={this.state.textMeta.length - 1} getTextByPosition={this.getTextByPosition}/>
                 </div>
