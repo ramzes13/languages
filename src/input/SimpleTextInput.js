@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import SimpleTextTTSConfig from './SimpleTextTTSConfig';
 
 class SimpleTextInput extends Component {
     constructor(props) {
@@ -14,7 +13,8 @@ class SimpleTextInput extends Component {
     }
 
     handleTextAreaChange(e) {
-        this.setState({text: e.target.value});
+        let text = e.target.value;
+        this.setState({text: text.replace(/(\r\n|\n|\r)/gm, "")});
     }
 
     handleSubmit() {
